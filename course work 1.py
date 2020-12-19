@@ -197,7 +197,15 @@ for g in range(n_modules):
 
     weights=[]
     for i in range(num_assesments):
-        weights.append(float(input('Enter weight:')))
+            while True:
+                try:  
+                    weights.append(float(input('Enter weight:')))
+                except ValueError:
+                    print("Sorry, I didn't understand that Please enter numbers or floats")        
+                    continue
+                else:
+                    break
+
 
     students=[]
     for k in range(num_students):
@@ -269,3 +277,4 @@ for g in range(n_modules):
         # if 39>=percent>=0:
         #     print('Unsatisfactory ')
         #     print('Degree Class: First')
+
