@@ -9,14 +9,15 @@ class Module:
         sum_of_scores=0                                        
         for student in self.students:                         
             for score in student.scores:                          
-                sum_of_scores=+score
+                sum_of_scores=sum_of_scores+score
+                # print(sum_of_scores)
         return sum_of_scores/len(self.weights)/len(self.students)        
 
 
     def average_score_spec(self,asses): 
         sum_of_scores=0                                  
         for student in self.students:
-            sum_of_scores=+student.scores[asses-1]
+            sum_of_scores= sum_of_scores + student.scores[asses-1]
         return sum_of_scores/len(self.students)
 
 
@@ -39,7 +40,7 @@ class Module:
         if sort_method=="by score":
             for i in range(len(to_sort)-1):
                 for k in range(len(to_sort)-i-1):
-                        if to_sort[k].performance()>to_sort[k+1].performance():
+                        if to_sort[k].performance(self.weights)>to_sort[k+1].performance(self.weights):
                             tmp=to_sort[k]
                             to_sort[k]=to_sort[k+1]
                             to_sort[k+1]=tmp
@@ -72,7 +73,7 @@ class Module:
         return to_sort
 
     
-    def max_min(self,asses): #?
+    def max_min(self,asses):
         pos_1=0
         pos_2=0
         maxn=self.students[0].scores[asses-1]
@@ -113,11 +114,13 @@ class Student:
         return total_score
 
 
+
+
 def menu_function():
     while True:
         while True:
             try:  
-                task=int(input('Choose Task for Program: \n 1. Display average score for entire class for specific assignment \n 2.  display the average score for the module over all assessments. \n 3. Display total score for each student sorted by method \n 4. display academic preformance for each student sorted by method \n 5. Display maxumum and minimum for specific assigmnt \n 6. Display maximum and minimum for all module \n 7.view all student data \n 8. close the program'))
+                task=int(input('Choose Task for Program: \n 1. Display average score for entire class for specific assignment per module \n 2.  display the average score of a module over all assessments. \n 3. Display total score for each student sorted by method \n 4. display academic preformance for each student sorted by method in each module \n 5. Display maxumum and minimum for specific assigmnt per module \n 6. Display maximum and minimum for all module \n 7.view all student data \n 8. close the program'))
             except ValueError:
                 print("Sorry, I didn't understand that Please please choose a number between 1 and 7")        
                 continue
@@ -131,47 +134,69 @@ def menu_function():
         if task ==1:
             module_num = int(input("enter modules number: "))
             assignment=int(input('Enter assignment number: '))
-            spec=modules[module_num].average_score_spec(assignment)
+            spec=modules[module_num-1].average_score_spec(assignment)
             print(spec)
         if task==2:
             module_num = int(input("enter modules number: '"))
-            average=modules[module_num].average_score_all()
+            average=modules[module_num-1].average_score_all()
             print(average)
         if task==3:
             module_num = int(input("enter modules number: "))
             sorting_method=int(input("Choose sorting method between 1. by score 2. alphabetically first name 3. alphabetically first name: "))
             if sorting_method==1:
-                sorted_list2=modules[module_num].total_score_all('by score')
+                sorted_list2=modules[module_num-1].total_score_all('by score')
             if sorting_method==2:
-                sorted_list2=modules[module_num].total_score_all('alphabetically first name')
+                sorted_list2=modules[module_num-1].total_score_all('alphabetically first name')
             if sorting_method==3:
-                sorted_list2=modules[module_num].total_score_all('alphabetically first name')
+                sorted_list2=modules[module_num-1].total_score_all('alphabetically first name')
             for i in range(0,len(sorted_list2)):
                 print(sorted_list2[i].first,sorted_list2[i].last,sorted_list2[i].total())
         if task==4:
             module_num = int(input("enter modules number'"))
-            sorting_method=int(input("Choose sorting method between 1. by score 2. alphabetically first name 3. alphabetically first name"))
+            sorting_method=int(input("Choose sorting method between 1. by score 2. alphabetically first name 3. alphabetically last name"))
             if sorting_method==1:
-                sorted_list=modules[module_num].performance_for_all('by score')
+                sorted_list=modules[module_num-1].performance_for_all('by score')
             if sorting_method==2:
-                sorted_list=modules[module_num].performance_for_all('alphabetically first name')
+                sorted_list=modules[module_num-1].performance_for_all('alphabetically first name')
             if sorting_method==3:
-                sorted_list=modules[module_num].performance_for_all('alphabetically first name')
+                sorted_list=modules[module_num-1].performance_for_all('alphabetically last name')
             for i in range(0,len(sorted_list)):
-                print(sorted_list[i].first,sorted_list[i].last,sorted_list[i].performance())
+                x=sorted_list[i].performance(weights)
+     
+            if 100>=x>=70:
+                print(sorted_list[i].first + " " + sorted_list[i].last + " " + str(x))
+                print('Excellent to Outstanding')
+                print('Degree Class: First')
+            if 69>=x>=60:
+                print(sorted_list[i].first + " " + sorted_list[i].last + " " + str(x))
+                print('Good to Very Good')
+                print('Degree Class: First')
+            if 59>=x>=50:
+                print(sorted_list[i].first + " " + sorted_list[i].last + " " + str(x))
+                print('Satisfying')
+                print('Degree Class: First')
+            if 49>=x>=40:
+                print(sorted_list[i].first + " " + sorted_list[i].last + " " + str(x))
+                print('Sufficient')
+                print('Degree Class: First')
+            if 39>=x>=0:
+                print(sorted_list[i].first + " " + sorted_list[i].last + " " + str(x))
+                print('Unsatisfactory ')
+                print('Degree Class: First')
+                
 
         if task==5:
             module_num = int(input("enter modules number'"))
             assignment=int(input('Enter assignment number:'))
             # spec=m.average_score_spec(assignment)
-            maxst,minst=modules[module_num].max_min(assignment)
+            maxst,minst=modules[module_num-1].max_min(assignment)
             print('Student with Maximum score')
             print(maxst.first,maxst.last,maxst.id)
             print('Students with minimum score')
             print(minst.first,minst.last,minst.id)
         if task==6:
             module_num = int(input("enter modules number'"))
-            sorted_list2=modules[module_num].total_score_all('by score')
+            sorted_list2=modules[module_num-1].total_score_all('by score')
             print('Student with maximum score in all module')
             print(sorted_list2[0].first,sorted_list2[0].last)
             print('Student with minimum score in all module')
@@ -300,3 +325,6 @@ for g in range(n_modules):
     modules.append(Module(module_name[g],module_code[g],students,weights))
 
 menu_function()
+
+
+
