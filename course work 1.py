@@ -12,12 +12,6 @@ class Module:
                 sum_of_scores=+score
         return sum_of_scores/len(self.weights)/len(self.students)        
 
-    def av_all_for_spcific_asses(self,students):
-        sum = 0
-        for b in range(self.students):
-            sum = students.scores+b / len(self.students) 
-        return sum
-
 
     def average_score_spec(self,asses): 
         sum_of_scores=0                                  
@@ -77,7 +71,7 @@ class Module:
                             to_sort[k+1]=tmp
         return to_sort
     
-    def max_min(self,asses):
+    def max_min(self,asses): #?
         pos_1=0
         pos_2=0
         maxn=self.students[0].scores[asses-1]
@@ -234,20 +228,31 @@ for g in range(n_modules):
     
 
 while True:
-    task=int(input('Choose Task for Program: \n 1. Display average score for entire class for specific assignment \n 2.  display the average score for the module over all assessments. \n 3. Display total score for each student sorted by method \n 4. display academic preformance for each student sorted by method \n 5. Display maxumum and minimum for specific assigmnt \n 6. Display maximum and minimum for all module'))
+    while True:
+        try:  
+            task=int(input('Choose Task for Program: \n 1. Display average score for entire class for specific assignment \n 2.  display the average score for the module over all assessments. \n 3. Display total score for each student sorted by method \n 4. display academic preformance for each student sorted by method \n 5. Display maxumum and minimum for specific assigmnt \n 6. Display maximum and minimum for all module \n 7.close the program'))
+        except ValueError:
+            print("Sorry, I didn't understand that Please please choose a number between 1 and 7")        
+            continue
+        if task <=0:
+            print("please choose a number between 1 and 7")
+        if task > 7:
+            print("please choose a number between 1 and 7")
+        else:
+            break
 
     if task ==1:
-        module_num = int(input("enter modules number'"))
-        assignment=int(input('Enter assignment number:'))
+        module_num = int(input("enter modules number: "))
+        assignment=int(input('Enter assignment number: '))
         spec=modules[module_num].average_score_spec(assignment)
         print(spec)
     if task==2:
-        module_num = int(input("enter modules number'"))
+        module_num = int(input("enter modules number: '"))
         average=modules[module_num].average_score_all()
         print(average)
     if task==3:
-        module_num = int(input("enter modules number'"))
-        sorting_method=int(input("Choose sorting method between 1. by score 2. alphabetically first name 3. alphabetically first name"))
+        module_num = int(input("enter modules number: "))
+        sorting_method=int(input("Choose sorting method between 1. by score 2. alphabetically first name 3. alphabetically first name: "))
         if sorting_method==1:
             sorted_list2=modules[module_num].total_score_all('by score')
         if sorting_method==2:
@@ -284,6 +289,8 @@ while True:
         print(sorted_list2[0].first,sorted_list2[0].last)
         print('Student with minimum score in all module')
         print(sorted_list2[num_students-1].first,sorted_list2[num_students-1].last)
+    if task==7:
+        break
 
         # if 100>=percent>=70:
         #     print('Excellent to Outstanding')
@@ -300,10 +307,3 @@ while True:
         # if 39>=percent>=0:
         #     print('Unsatisfactory ')
         #     print('Degree Class: First')
-
-
-
-
-
-
-      line = 309
