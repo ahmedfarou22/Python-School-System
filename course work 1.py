@@ -5,6 +5,26 @@ class Module:
         self.students=students
         self.weights=weights #number of assessments is the same as length on the weights
     
+    # setters
+    def set_name(self,x):
+        self.name=x
+    def set_code(self,x):
+        self.code=x
+    def set_students(self,x):
+        self.students=x
+    def set_weights(self,x):
+        self.weights=x
+
+    #getters
+    def get_name(self):
+        return self.name
+    def get_code(self):
+        return self.code
+    def get_students(self):
+        return self.students
+    def get_weights(self):
+        return self.weights
+
     def average_score_all(self): 
         sum_of_scores=0                                        
         for student in self.students:                         
@@ -91,14 +111,34 @@ class Module:
         return max_stu,min_stu
     
 class Student:
-
     def __init__(self,first,last,id_n,scores):
         self.first=first
         self.last=last
         self.id=id_n
         self.scores=scores
         self.n_modules=n_modules
-    
+
+    # setters
+    def set_first(self,x):
+        self.first=x
+    def set_last(self,x):
+        self.last=x
+    def set_id_n(self,x):
+        self.id_n=x
+    def set_scores(self,x):
+        self.scores=x
+
+    #getters
+    def get_first(self):
+        return self.first
+    def get_last(self):
+        return self.last
+    def get_id_n(self):
+        return self.id_n
+    def get_scores(self):
+        return self.scores
+
+
     def performance(self,weights):
         for i in range(len(self.scores)):
             curr_score=self.scores[i]
@@ -325,6 +365,5 @@ for g in range(n_modules):
     modules.append(Module(module_name[g],module_code[g],students,weights))
 
 menu_function()
-
 
 
