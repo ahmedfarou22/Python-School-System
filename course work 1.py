@@ -70,6 +70,7 @@ class Module:
                             to_sort[k]=to_sort[k+1]
                             to_sort[k+1]=tmp
         return to_sort
+
     
     def max_min(self,asses): #?
         pos_1=0
@@ -87,7 +88,7 @@ class Module:
                 pos_2=j
         min_stu=self.students[pos_2]
         return max_stu,min_stu
-
+    
 class Student:
 
     def __init__(self,first,last,id_n,scores):
@@ -111,18 +112,19 @@ class Student:
             total_score=total_score+self.scores[i]
         return total_score
 
+
 def menu_function():
     while True:
         while True:
             try:  
-                task=int(input('Choose Task for Program: \n 1. Display average score for entire class for specific assignment \n 2.  display the average score for the module over all assessments. \n 3. Display total score for each student sorted by method \n 4. display academic preformance for each student sorted by method \n 5. Display maxumum and minimum for specific assigmnt \n 6. Display maximum and minimum for all module \n 7.close the program'))
+                task=int(input('Choose Task for Program: \n 1. Display average score for entire class for specific assignment \n 2.  display the average score for the module over all assessments. \n 3. Display total score for each student sorted by method \n 4. display academic preformance for each student sorted by method \n 5. Display maxumum and minimum for specific assigmnt \n 6. Display maximum and minimum for all module \n 7.view all student data \n 8. close the program'))
             except ValueError:
                 print("Sorry, I didn't understand that Please please choose a number between 1 and 7")        
                 continue
             if task <=0:
-                print("please choose a number between 1 and 7")
-            if task > 7:
-                print("please choose a number between 1 and 7")
+                print("please choose a number between 1 and 8")
+            if task > 8:
+                print("please choose a number between 1 and 8")
             else:
                 break
 
@@ -175,7 +177,16 @@ def menu_function():
             print('Student with minimum score in all module')
             print(sorted_list2[num_students-1].first,sorted_list2[num_students-1].last)
         if task==7:
+            student_data()
+
+        if task==8:
             break
+
+def student_data():
+    for k in students:
+        print("student name: "+ k.first + " " + k.last + "  student id: " + str(k.id))
+
+
 
 #lists  
 modules=[]
@@ -187,7 +198,7 @@ first_names=[]
 last_names=[]
 student_ids=[] 
 
-#the program
+##########################################################################################################
 print ("to start the program please enter all the inputs below:")
 
 #input section
@@ -205,7 +216,6 @@ while True:
         continue
     else:
         break
-
 while True: 
     try:   
         num_students = int(input('Enter number of students from 3 to 100:'))
@@ -220,7 +230,6 @@ while True:
         continue
     else:
         break
-
 
 for i in range(num_students):
     while True:
@@ -244,8 +253,6 @@ for i in range(num_students):
             continue
         else:
             break
-
-
 for g in range(n_modules):
     while True:
         modulename = input("enter module name")
@@ -292,4 +299,4 @@ for g in range(n_modules):
         students.append(Student(first_names[k],last_names[k],student_ids[k],scores_current))
     modules.append(Module(module_name[g],module_code[g],students,weights))
 
-menu_function() 
+menu_function()
