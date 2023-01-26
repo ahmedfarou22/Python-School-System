@@ -3,7 +3,7 @@ This is a command-line tool built using Python that utilizes object-oriented pro
 
 The tool is designed to be easy to use and understand, it allows teachers to input student grades and generate reports, such as class averages, student grades, and grade distributions.
 
-##The tool allows teachers to: 
+## The tool allows teachers to: 
 
 Add and remove students
 Add and remove grades for students
